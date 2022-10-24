@@ -34,5 +34,5 @@ Outputs:
     Description: "CertificadoLambda Function ARN"
     Value: !GetAtt CertificadoFunction.Arn
   CertificadoFunctionIamRole:
-    Description: "IAM Role created for Certificadofunction ok"
+    Description: "IAM Role created for Certificadofunction yo cambien en Git"
     Value: !GetAtt CertificadoFunctionRole.Arn
