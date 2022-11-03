@@ -2,9 +2,9 @@ version = 0.1
 [default]
 [default.deploy]
 [default.deploy.parameters]
-stack_name = "tcl-certificado"
+stack_name = "sam-certificado-tcl"
 s3_bucket = "aws-sam-cli-managed-default-samclisourcebucket-tczx7jijciaf"
-s3_prefix = "tcl-certificado"
+s3_prefix = "sam-certificado-tcl"
 region = "us-east-1"
 capabilities = "CAPABILITY_IAM"
 image_repositories = []

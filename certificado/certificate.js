@@ -1,30 +1,14 @@
+'use strict';
 const fs = require("fs");
 const AWS = require('aws-sdk');
 const s3 = new AWS.S3();
 const PDFDocument = require("pdfkit");
-var path = require('path');
 
-
-exports.handler = function (event, callback) {
-
-  const timestamp = Date.now();
-  let fileName = "certificado" + timestamp + ".pdf";
-  const params = { Bucket: "certificado-lncap-resources", Key: "images/FirmaCertificado.jpg", ResponseContentType: 'image/jpg' };
-
-
-  var tempFileName = path.join('/tmp', 'firma' + timestamp + '.jpg');
-  var tempFile = fs.createWriteStream(tempFileName);
-
-  s3.getObject(params).createReadStream().pipe(tempFile);
-  tempFile.on("finish", function () {
-    createCertificate(event, fileName, tempFileName);
-  });
-}
 
 function createCertificate(certificate, fileName, firma) {
   let doc = new PDFDocument({ size: "A4", margin: 50 });
   let file = fs.createWriteStream("/tmp/" + fileName);
-  
+
   //Generacion del Certificado
   doc.pipe(file);
   generateHeader(doc, certificate);
@@ -39,7 +23,7 @@ function createCertificate(certificate, fileName, firma) {
     console.log("Nombre : " + "/tmp/" + fileName);
 
     s3.putObject({
-      Bucket: "certificado-lncap-tcl",
+      Bucket: process.env.CERT_BUCKET,
       Key: "certificado/" + fileName,
       Body: fs.createReadStream("/tmp/" + fileName),
       ContentType: "application/pdf",
@@ -112,3 +96,5 @@ function getS3Object(params) {
 function getSignedUrl(params) {
   return s3.getSignedUrl('getObject', params);
 }
+
+module.exports = { createCertificate }

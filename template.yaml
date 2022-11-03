@@ -4,15 +4,30 @@ Description: >
   tcl-certificado
 
    SAM Template for tcl-certificado
-
 Globals:
   Function:
     Timeout: 3
+
+Parameters:
+  CertBucketVar:
+    Type: String
+    Description: Bucket Certificado
+    Default: cert-lncap-tcl
+  CertResourcesBucketVar:
+    Type: String
+    Description: Bucket Certificado Resources
+    Default: cert-lncap-resources
+
 
 Resources:
   CertificadoFunction:
     Type: AWS::Serverless::Function 
     Properties:
+      Environment:
+          Variables:
+            RESOURCE_BUCKET: !Ref CertResourcesBucketVar
+            CERT_BUCKET: !Ref CertBucketVar
+
       CodeUri: certificado/
       Handler: index.handler
       Runtime: nodejs16.x
@@ -20,7 +35,7 @@ Resources:
         - x86_64
 
       Layers:
-        - !Ref HelpersLayer
+        - !Ref PdfKitLayer
                 
       Policies:
         - Statement:
@@ -37,6 +52,15 @@ Resources:
             Path: /certificado
             Method: get
 
+  PdfKitLayer:
+    Type: AWS::Serverless::LayerVersion
+    Properties:
+      LayerName: pdfkit-layer
+      Description: Layer pdfkit that will be shared across multiple functions
+      LicenseInfo: 'Available under the MIT license.'
+      ContentUri: ./pdfkit-layer
+      CompatibleRuntimes:
+        - nodejs16.x
 Outputs:
 
   CertificadoApi:

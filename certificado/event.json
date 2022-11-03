@@ -1,15 +1,14 @@
-
 {
-    "fecha": "01/01/2022",
-    "razonSocial": "TCL Chile.",
+    "fecha": "Santiago 01/01/2022",
+    "razonSocial": "IMC Chile.",
     "modelo": "MJ V145",
     "anho": "2015",
     "chasis": "112233445566",
     "fechaTesteo": "01/01/2022",
     "cantidadPuntos": "120",
     "totalPuntos": "150",
-    "minera": "Codelco Chiquicamata",
-    "firmaDigitalizada": "FIRMA DIGITALIZADA",
+    "minera": "Quebrada Blanca",
+    "firmaDigitalizada": " ",
     "nombreFirma": "Ignacio Funes",
     "codigoCertificado": "998877665544"
 }
