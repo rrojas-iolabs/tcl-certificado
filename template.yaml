@@ -14,10 +14,22 @@ Resources:
     Type: AWS::Serverless::Function 
     Properties:
       CodeUri: certificado/
-      Handler: app.lambdaHandler
+      Handler: index.handler
       Runtime: nodejs16.x
       Architectures:
         - x86_64
+
+      Layers:
+        - !Ref HelpersLayer
+                
+      Policies:
+        - Statement:
+          - Effect: Allow
+            Action:
+              - s3:*
+              - s3-object-lambda:*
+            Resource: '*'
+
       Events:
         Certificado:
           Type: Api 
