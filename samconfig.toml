@@ -6,6 +6,5 @@ stack_name = "tcl-certificado"
 s3_bucket = "aws-sam-cli-managed-default-samclisourcebucket-tczx7jijciaf"
 s3_prefix = "tcl-certificado"
 region = "us-east-1"
-confirm_changeset = true
 capabilities = "CAPABILITY_IAM"
 image_repositories = []
